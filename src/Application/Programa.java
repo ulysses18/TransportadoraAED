@@ -17,10 +17,6 @@ public class Programa {
 	JButton btnConsultar;
 	JTable tabela;
     JScrollPane painel;
-    //String[][]       dados;
-	//String[]         nomesColunas;
-	//FileInputStream  arquivo;
-	//DataInputStream  leitor;
 
 	// Rodar o app em memória principal.
 	public static void main(String[] args) {
