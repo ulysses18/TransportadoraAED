@@ -1,0 +1,108 @@
+package Entities;
+
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class DadosCSV {
+	static FileInputStream arquivo;
+    static DataInputStream leitor;
+    public static String[][] dados;
+    public static String[] nomesColunas;
+    
+    public static int contaColuna(String planilha)
+    {
+    	int caractere = 0;
+    	int colunas=0;
+    	 try {
+             arquivo = new FileInputStream(planilha);
+             leitor = new DataInputStream(arquivo);
+
+             while (caractere != 10) {
+                 caractere = leitor.read();
+                 	if (caractere == 59)
+                 		colunas += 1;          
+             }            
+             arquivo.close();
+         } catch (IOException erro) {
+             System.out.println("Arquivo nao existe...");
+         }       
+         return (colunas+1);
+    }
+    
+    public static int contaLinha(String planilha)
+    {
+    	int caractere = 0;
+    	int linhas=0;
+    	 try { 
+             arquivo = new FileInputStream(planilha);
+             leitor = new DataInputStream(arquivo);
+
+             while (caractere != -1) {
+                 caractere = leitor.read();
+                 	if (caractere == 10)
+                 		linhas += 1;
+             }                         
+             arquivo.close();
+    	 }
+          catch (IOException erro) { 
+             System.out.println("Arquivo nao existe...");
+          }
+         return (linhas-1);
+    }
+    
+    public static void getData(String planilha) {
+        int caractere = 0, linha = 0;
+        boolean cabecalho = true;
+        String buffer = "";
+   
+        int linhas  = DadosCSV.contaLinha(planilha);
+        int colunas = DadosCSV.contaColuna(planilha);       
+        
+        dados = new String[linhas][colunas];
+        nomesColunas = new String[colunas];
+
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                dados[i][j] = "";
+            }
+        }
+        for (int i = 0; i < colunas; i++) {
+            nomesColunas[i] = "";
+        }
+
+        try {
+            arquivo = new FileInputStream(planilha);
+            leitor = new DataInputStream(arquivo);
+
+            while (caractere != -1) {
+                caractere = leitor.read();
+                
+                if (caractere != 10 && caractere != -1)
+                    buffer += (char) caractere;
+            
+                if (caractere == 10)
+                {
+                   System.out.println(buffer);
+                   if (cabecalho)
+                   {
+                       nomesColunas = buffer.split(";");
+                       cabecalho = false;
+                       buffer = "";
+                   }
+                   else
+                   {
+                       dados[linha] = buffer.split(";");
+                       linha++;
+                       buffer = "";
+                   }
+                }
+            }
+            arquivo.close();
+        } catch (IOException erro) {
+            System.out.println("Arquivo nao existe...");
+        }
+    }
+
+}
+
