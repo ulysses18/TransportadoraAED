@@ -1,28 +1,6 @@
-Estado;Sigla;Região;Frete
-Distrito Federal;DF;Centro-Oeste;R$ 500,00
-Goiás;GO;Centro-Oeste;R$ 500,00
-Mato Grosso;MT;Centro-Oeste;R$ 500,00
-Mato Grosso do Sul;MS;Centro-Oeste;R$ 500,00
-Alagoas;AL;Nordeste;R$ 750,00
-Bahia;BA;Nordeste;R$ 750,00
-Ceará;CE;Nordeste;R$ 750,00
-Maranhão;MA;Nordeste;R$ 750,00
-Paraíba;PB;Nordeste;R$ 750,00
-Pernambuco;PE;Nordeste;R$ 750,00
-Piauí;PI;Nordeste;R$ 750,00
-Rio Grande do Norte;RN;Nordeste;R$ 750,00
-Sergipe;SE;Nordeste;R$ 750,00
-Acre;AC;Norte;R$ 800,00
-Amapá;AP;Norte;R$ 800,00
-Amazonas;AM;Norte;R$ 800,00
-Pará;PA;Norte;R$ 800,00
-Rondônia;RO;Norte;R$ 800,00
-Roraima;RR;Norte;R$ 800,00
-Tocantins;TO;Norte;R$ 800,00
-Espírito Santo;ES;Sudeste;R$ 300,00
-Minas Gerais;MG;Sudeste;R$ 300,00
-Rio de Janeiro;RJ;Sudeste;R$ 300,00
-São Paulo;SP;Sudeste;R$ 300,00
-Paraná;PR;Sul;R$ 420,00
-Rio Grande do Sul;RS;Sul;R$ 420,00
-Santa Catarina;SC;Sul;R$ 420,00
+Região,Frete
+Centro-Oeste,R$ 500
+Nordeste,R$ 750
+Norte,R$ 800
+Sudeste,R$ 300
+Sul,R$ 420
