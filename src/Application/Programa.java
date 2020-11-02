@@ -2,7 +2,6 @@ package Application;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
@@ -85,6 +84,9 @@ public class Programa {
 			public void actionPerformed(ActionEvent arg0) {
 				// Código quando clicar no botão
 				System.out.println(inputID.getText());
+				// segundo argumento = mensagem na tela
+				// terceiro = título do popup
+				JOptionPane.showMessageDialog(null, "Olá mundo!", "Informações", JOptionPane.QUESTION_MESSAGE);
 			}
 		});
 
