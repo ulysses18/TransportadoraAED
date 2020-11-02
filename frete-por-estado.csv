@@ -1,6 +1,6 @@
-Região,Frete
-Centro-Oeste,R$ 500
-Nordeste,R$ 750
-Norte,R$ 800
-Sudeste,R$ 300
-Sul,R$ 420
+Região;Frete
+Centro-Oeste;R$ 500
+Nordeste;R$ 750
+Norte;R$ 800
+Sudeste;R$ 300
+Sul;R$ 420

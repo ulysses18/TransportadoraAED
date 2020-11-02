@@ -7,15 +7,16 @@ import javax.swing.border.MatteBorder;
 
 import Entities.DadosCSV;
 //
-public class Programa {
+public class Programa implements WindowListener, ActionListener{
 
 	private JFrame frmControleDeGastos;
 	private JTextField inputID;
 	JLabel lblBemVindo;
 	JLabel labelTransportadora;
-	JButton btnConsultar;
+	JButton btnConsultar, btnProximo;
 	JTable tabela;
     JScrollPane painel;
+    int planilha = 1;
 
 	// Rodar o app em memória principal.
 	public static void main(String[] args) {
@@ -53,6 +54,7 @@ public class Programa {
 		frmControleDeGastos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		DadosCSV.getData("transportadoras.csv");
+		planilha = 1;
 		tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
         painel = new JScrollPane(tabela);
         painel.setBounds(123, 70, 640, 204);
@@ -64,12 +66,12 @@ public class Programa {
 		lblBemVindo.setForeground(Color.WHITE);
 
 		labelTransportadora = new JLabel("ID Transportadora");
-		labelTransportadora.setBounds(185, 333, 141, 15);
+		labelTransportadora.setBounds(125, 290, 141, 15);
 		labelTransportadora.setForeground(Color.WHITE);
 
 		// InputText do ID da transportadora
 		inputID = new JTextField();
-		inputID.setBounds(338, 326, 221, 29);
+		inputID.setBounds(255, 285, 221, 29);
 		inputID.setColumns(10);
 
 		// Botões
@@ -77,9 +79,9 @@ public class Programa {
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setBackground(Color.ORANGE);
 		btnConsultar.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		btnConsultar.setBounds(586, 327, 122, 27);
-		btnConsultar.addActionListener(new ActionListener() 
-		{
+		btnConsultar.setBounds(500, 285, 122, 27);
+		btnConsultar.addActionListener(this);
+		/*{
 			
 			public void actionPerformed(ActionEvent arg0) {
 				// Código quando clicar no botão
@@ -88,7 +90,16 @@ public class Programa {
 				// terceiro = título do popup
 				JOptionPane.showMessageDialog(null, "Olá mundo!", "Informações", JOptionPane.QUESTION_MESSAGE);
 			}
-		});
+		});*/
+		
+		
+		btnProximo = new JButton("Pr�ximo");
+		btnProximo.setForeground(Color.WHITE);
+		btnProximo.setBackground(Color.ORANGE);
+		btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		btnProximo.setBounds(770, 150, 120, 27);
+		btnProximo.addActionListener(this);
+		
 
 
 		// Adição dos componentes na tela
@@ -98,6 +109,92 @@ public class Programa {
 		frmControleDeGastos.getContentPane().add(labelTransportadora);
 		frmControleDeGastos.getContentPane().add(inputID);
 		frmControleDeGastos.getContentPane().add(btnConsultar);
+		frmControleDeGastos.getContentPane().add(btnProximo);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent evento) {
+		if(evento.getSource() == btnConsultar)
+		{
+			System.out.println(inputID.getText());
+			// segundo argumento = mensagem na tela
+			// terceiro = título do popup
+			JOptionPane.showMessageDialog(null, "Olá mundo!",
+					"Informações", JOptionPane.QUESTION_MESSAGE);
+		}
+		if(evento.getSource() == btnProximo && planilha == 1)
+		{
+			frmControleDeGastos.getContentPane().remove(painel);
+			DadosCSV.getData("frete-por-estado.csv");
+			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
+			painel = new JScrollPane(tabela);
+			painel.setBounds(123, 70, 640, 204);
+			frmControleDeGastos.getContentPane().add(painel);
+			planilha = 2;
+		}
+		else if(evento.getSource() == btnProximo && planilha == 2)
+		{
+			frmControleDeGastos.getContentPane().remove(painel);
+			DadosCSV.getData("valor-por-ton.csv");
+			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
+			painel = new JScrollPane(tabela);
+			painel.setBounds(123, 70, 640, 204);
+			frmControleDeGastos.getContentPane().add(painel);
+			planilha = 3;
+		}
+		else if(evento.getSource() == btnProximo && planilha == 3)
+		{
+			frmControleDeGastos.getContentPane().remove(painel);
+			DadosCSV.getData("transportadoras.csv");
+			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
+			painel = new JScrollPane(tabela);
+			painel.setBounds(123, 70, 640, 204);
+			frmControleDeGastos.getContentPane().add(painel);
+			planilha = 1;
+		}
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
