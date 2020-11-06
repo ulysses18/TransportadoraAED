@@ -12,9 +12,9 @@ import Entities.DadosCSV;
 public class Programa implements WindowListener, ActionListener{
 
 	private JFrame frmControleDeGastos;
-	private JTextField inputID;
+	private JTextField inputID, inputRegiao, inputTonelada;
 	JLabel lblBemVindo;
-	JLabel labelTransportadora;
+	JLabel labelTransportadora, labelRegiao, labelTonelada;
 	JButton btnConsultar, btnProximo;
 	JTable tabela;
     JScrollPane painel;
@@ -71,20 +71,36 @@ public class Programa implements WindowListener, ActionListener{
 		lblBemVindo.setForeground(Color.WHITE);
 
 		labelTransportadora = new JLabel("ID Transportadora");
-		labelTransportadora.setBounds(125, 290, 141, 15);
+		labelTransportadora.setBounds(125, 290, 140, 20);
 		labelTransportadora.setForeground(Color.WHITE);
+		
+		labelRegiao = new JLabel("Regi�o do destino");
+		labelRegiao.setBounds(125, 290, 140, 95);
+		labelRegiao.setForeground(Color.WHITE);
+		
+		labelTonelada = new JLabel("Toneladas da carga");
+		labelTonelada.setBounds(125, 290, 140, 170);
+		labelTonelada.setForeground(Color.WHITE);
 
-		// InputText do ID da transportadora
+		// InputText do ID, Regiao e toneladas da transportadora
 		inputID = new JTextField();
-		inputID.setBounds(255, 285, 221, 29);
+		inputID.setBounds(255, 285, 221, 30);
 		inputID.setColumns(10);
+		
+		inputRegiao = new JTextField();
+		inputRegiao.setBounds(255, 320, 221, 30);
+		inputRegiao.setColumns(10);
+		
+		inputTonelada = new JTextField();
+		inputTonelada.setBounds(255, 355, 221, 30);
+		inputTonelada.setColumns(10);
 
 		// Botões
 		btnConsultar = new JButton("Consultar");
 		btnConsultar.setForeground(Color.WHITE);
 		btnConsultar.setBackground(Color.ORANGE);
 		btnConsultar.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		btnConsultar.setBounds(500, 285, 122, 27);
+		btnConsultar.setBounds(500, 320, 120, 30);
 		btnConsultar.addActionListener(this);
 		
 		btnProximo = new JButton("Próximo");
@@ -101,7 +117,11 @@ public class Programa implements WindowListener, ActionListener{
 		frmControleDeGastos.getContentPane().add(lblBemVindo);
 		frmControleDeGastos.getContentPane().add(painel);
 		frmControleDeGastos.getContentPane().add(labelTransportadora);
+		frmControleDeGastos.getContentPane().add(labelRegiao);
+		frmControleDeGastos.getContentPane().add(labelTonelada);
 		frmControleDeGastos.getContentPane().add(inputID);
+		frmControleDeGastos.getContentPane().add(inputRegiao);
+		frmControleDeGastos.getContentPane().add(inputTonelada);
 		frmControleDeGastos.getContentPane().add(btnConsultar);
 		frmControleDeGastos.getContentPane().add(btnProximo);
 	}
