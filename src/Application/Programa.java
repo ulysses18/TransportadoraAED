@@ -2,6 +2,8 @@ package Application;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Locale;
+
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
@@ -39,6 +41,10 @@ public class Programa implements WindowListener, ActionListener{
 
 	// Iniciar app.
 	private void initialize() {
+		
+		Locale.setDefault(new Locale("pt", "BR"));
+
+		
 		// JFrame principal
 		frmControleDeGastos = new JFrame();
 		frmControleDeGastos.getContentPane().setFocusTraversalPolicyProvider(true);
@@ -54,14 +60,13 @@ public class Programa implements WindowListener, ActionListener{
 		frmControleDeGastos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		DadosCSV.getData("transportadoras.csv");
-		planilha = 1;
 		tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
         painel = new JScrollPane(tabela);
         painel.setBounds(123, 70, 640, 204);
 
 		// Labels
-		lblBemVindo = new JLabel("Bem vindo!");
-		lblBemVindo.setBounds(395, 12, 92, 18);
+		lblBemVindo = new JLabel("Transportadoras cadastradas");
+		lblBemVindo.setBounds(395, 12, 250, 18);
 		lblBemVindo.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblBemVindo.setForeground(Color.WHITE);
 
@@ -81,19 +86,8 @@ public class Programa implements WindowListener, ActionListener{
 		btnConsultar.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		btnConsultar.setBounds(500, 285, 122, 27);
 		btnConsultar.addActionListener(this);
-		/*{
-			
-			public void actionPerformed(ActionEvent arg0) {
-				// Código quando clicar no botão
-				System.out.println(inputID.getText());
-				// segundo argumento = mensagem na tela
-				// terceiro = título do popup
-				JOptionPane.showMessageDialog(null, "Olá mundo!", "Informações", JOptionPane.QUESTION_MESSAGE);
-			}
-		});*/
 		
-		
-		btnProximo = new JButton("Pr�ximo");
+		btnProximo = new JButton("Próximo");
 		btnProximo.setForeground(Color.WHITE);
 		btnProximo.setBackground(Color.ORANGE);
 		btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
@@ -116,14 +110,14 @@ public class Programa implements WindowListener, ActionListener{
 	public void actionPerformed(ActionEvent evento) {
 		if(evento.getSource() == btnConsultar)
 		{
+			String idLido = inputID.getText();
 			System.out.println(inputID.getText());
-			// segundo argumento = mensagem na tela
-			// terceiro = título do popup
-			JOptionPane.showMessageDialog(null, "Olá mundo!",
+			JOptionPane.showMessageDialog(null, idLido,
 					"Informações", JOptionPane.QUESTION_MESSAGE);
 		}
 		if(evento.getSource() == btnProximo && planilha == 1)
 		{
+			lblBemVindo.setText("Frete por estado");
 			frmControleDeGastos.getContentPane().remove(painel);
 			DadosCSV.getData("frete-por-estado.csv");
 			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
@@ -135,6 +129,7 @@ public class Programa implements WindowListener, ActionListener{
 		else if(evento.getSource() == btnProximo && planilha == 2)
 		{
 			frmControleDeGastos.getContentPane().remove(painel);
+			lblBemVindo.setText("Valor por tonelada");
 			DadosCSV.getData("valor-por-ton.csv");
 			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
 			painel = new JScrollPane(tabela);
@@ -145,6 +140,7 @@ public class Programa implements WindowListener, ActionListener{
 		else if(evento.getSource() == btnProximo && planilha == 3)
 		{
 			frmControleDeGastos.getContentPane().remove(painel);
+			lblBemVindo.setText("Transportadoras cadastradas");
 			DadosCSV.getData("transportadoras.csv");
 			tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
 			painel = new JScrollPane(tabela);
