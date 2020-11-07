@@ -134,10 +134,34 @@ public class Programa implements WindowListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		if(evento.getSource() == btnConsultar)
-		{
-			//String idLido = inputID.getText();		
-			//JOptionPane.showMessageDialog(null, idLido,
-					//"Informações", JOptionPane.QUESTION_MESSAGE);
+		{			
+			
+			int linhaTabelaDeTon;
+			float total;
+			float regiao;
+			
+			//le o id da transportadora e converte para Int
+			//usa esse id para saber de qual linha 
+			//o valor sera extraido
+			String idLido = inputID.getText();
+			linhaTabelaDeTon = Integer.parseInt(idLido);			
+			dados.leToneladas(linhaTabelaDeTon);
+		
+			//le qual regiao vai ser o frete e converte para Int
+			//pra saber de qual linha vai extrair o valor
+			String linhaTabelaRegiao = inputRegiao.getText();			
+			dados.leRegiao(Integer.parseInt(linhaTabelaRegiao));
+			regiao = Float.parseFloat(dados.numRegiao);
+			
+			dados.valorPorTonelada = Float.parseFloat(dados.ton);
+			String toneladaLida = inputTonelada.getText();
+			total = dados.valorTotal(toneladaLida, regiao);
+			
+			System.out.println(total);
+			
+			JOptionPane.showMessageDialog(null,"Valor da viagem: "
+					+ "R$"+total,
+					"Or�amento", JOptionPane.QUESTION_MESSAGE);
 			
 		}
 		if(evento.getSource() == btnProximo && planilha == 1)
