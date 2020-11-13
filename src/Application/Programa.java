@@ -108,7 +108,7 @@ public class Programa implements WindowListener, ActionListener{
 		btnConsultar.setBounds(500, 320, 120, 30);
 		btnConsultar.addActionListener(this);
 		
-		btnProximo = new JButton("PrÃ³ximo");
+		btnProximo = new JButton("Próximo");
 		btnProximo.setForeground(Color.WHITE);
 		btnProximo.setBackground(Color.ORANGE);
 		btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
@@ -138,7 +138,9 @@ public class Programa implements WindowListener, ActionListener{
 			
 			int linhaTabelaDeTon;
 			float total;
-			float regiao;
+			float frete;
+			String regiao;
+			
 			
 			//le o id da transportadora e converte para Int
 			//usa esse id para saber de qual linha 
@@ -147,17 +149,20 @@ public class Programa implements WindowListener, ActionListener{
 			linhaTabelaDeTon = Integer.parseInt(idLido);			
 			dados.leToneladas(linhaTabelaDeTon);
 		
-			//le qual regiao vai ser o frete e converte para Int
-			//pra saber de qual linha vai extrair o valor
-			String linhaTabelaRegiao = inputRegiao.getText();			
-			dados.leRegiao(Integer.parseInt(linhaTabelaRegiao));
-			regiao = Float.parseFloat(dados.numRegiao);
+			//le qual regiao vai ser o frete e converte para float
+			//o valor correspondente
+			String linhaTabelaRegiao = inputRegiao.getText();
+			
+			regiao = dados.leRegiao(linhaTabelaRegiao);
+			System.out.println(regiao);
+			frete = Float.parseFloat(regiao);
 			
 			dados.valorPorTonelada = Float.parseFloat(dados.ton);
 			String toneladaLida = inputTonelada.getText();
-			total = dados.valorTotal(toneladaLida, regiao);
+			total = dados.valorTotal(toneladaLida, frete);
 			
 			System.out.println(total);
+			
 			
 			JOptionPane.showMessageDialog(null,"Valor da viagem: "
 					+ "R$"+total,

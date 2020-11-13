@@ -1,7 +1,7 @@
 package Entities;
 
 public class Orcamento {
-	public String numRegiao;
+	public String nomeRegiao;
 	public String ton;
 	public float valorPorTonelada;
 	
@@ -12,11 +12,23 @@ public class Orcamento {
 		ton = DadosCSV.dados[linha-1][1];			 
 	}
 	
-	public void leRegiao(int linha)
+	public String leRegiao(String regiao)
 	{
 		//extrai o valor do frete, em string ainda
 		DadosCSV.getData("frete-por-estado.csv");
-		numRegiao = DadosCSV.dados[linha-1][1];
+		int linha = DadosCSV.contaLinha("frete-por-estado.csv");
+		String reg;
+		for(int i = 0; i < linha; i++)
+		{
+			reg = DadosCSV.dados[i][0];
+			
+			if(regiao.equals(reg))
+			{
+				nomeRegiao = DadosCSV.dados[i][1];
+				break;
+			}			
+		}
+		return nomeRegiao;	
 	}
 	
 	public float valorTotal(String toneladaLida, float regiaoLida)
