@@ -2,6 +2,9 @@ package Application;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Locale;
 
 import javax.swing.*;
@@ -14,13 +17,15 @@ public class Programa implements WindowListener, ActionListener{
 
 	Orcamento dados = new Orcamento();
 	private JFrame frmControleDeGastos;
-	private JTextField inputID, inputRegiao, inputTonelada;
+	private JComboBox inputID, inputRegiao;
+	private JTextField inputTonelada;
 	JLabel lblBemVindo;
 	JLabel labelTransportadora, labelRegiao, labelTonelada;
 	JButton btnConsultar, btnProximo;
 	JTable tabela;
     JScrollPane painel;
     int planilha = 1;
+
 
 	// Rodar o app em memÃ³ria principal.
 	public static void main(String[] args) {	
@@ -83,22 +88,31 @@ public class Programa implements WindowListener, ActionListener{
 		labelTonelada.setBounds(125, 290, 140, 95);
 		labelTonelada.setForeground(Color.WHITE);
 		
-		labelRegiao = new JLabel("Região do destino");
+		labelRegiao = new JLabel("Regiï¿½o do destino");
 		labelRegiao.setBounds(125, 290, 140, 170);
 		labelRegiao.setForeground(Color.WHITE);
 
 		// InputText do ID, Regiao e toneladas da transportadora
-		inputID = new JTextField();
+		inputID = new JComboBox();
+
+		inputID.addItem("<Selecione um ID>");
+		for (int i = 0; i < DadosCSV.contaLinha("transportadoras.csv"); i++) {
+			inputID.addItem(DadosCSV.dados[i][0]);
+		}
+
 		inputID.setBounds(255, 285, 221, 30);
-		inputID.setColumns(10);
 		
 		inputTonelada = new JTextField();
 		inputTonelada.setBounds(255, 320, 221, 30);
 		inputTonelada.setColumns(10);
 		
-		inputRegiao = new JTextField();
+		inputRegiao = new JComboBox();
 		inputRegiao.setBounds(255, 355, 221, 30);
-		inputRegiao.setColumns(10);
+
+		inputRegiao.addItem("<Selecione a regiÃ£o>");
+		for (int i = 0; i < DadosCSV.contaLinha("frete-por-estado.csv"); i++){
+			inputRegiao.addItem(Orcamento.leRegiao(DadosCSV.dados[i][0]));
+		}
 
 		// BotÃµes
 		btnConsultar = new JButton("Consultar");
@@ -108,7 +122,7 @@ public class Programa implements WindowListener, ActionListener{
 		btnConsultar.setBounds(500, 320, 120, 30);
 		btnConsultar.addActionListener(this);
 		
-		btnProximo = new JButton("Próximo");
+		btnProximo = new JButton("Prï¿½ximo");
 		btnProximo.setForeground(Color.WHITE);
 		btnProximo.setBackground(Color.ORANGE);
 		btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
@@ -145,13 +159,13 @@ public class Programa implements WindowListener, ActionListener{
 			//le o id da transportadora e converte para Int
 			//usa esse id para saber de qual linha 
 			//o valor sera extraido
-			String idLido = inputID.getText();
-			linhaTabelaDeTon = Integer.parseInt(idLido);			
+			String idLido = inputID.getSelectedItem().toString();
+			linhaTabelaDeTon = Integer.parseInt(idLido);
 			dados.leToneladas(linhaTabelaDeTon);
 		
 			//le qual regiao vai ser o frete e converte para float
 			//o valor correspondente
-			String linhaTabelaRegiao = inputRegiao.getText();
+			String linhaTabelaRegiao = inputRegiao.getSelectedItem().toString();
 			
 			regiao = dados.leRegiao(linhaTabelaRegiao);
 			System.out.println(regiao);
@@ -166,7 +180,7 @@ public class Programa implements WindowListener, ActionListener{
 			
 			JOptionPane.showMessageDialog(null,"Valor da viagem: "
 					+ "R$"+total,
-					"Orçamento", JOptionPane.QUESTION_MESSAGE);
+					"Orï¿½amento", JOptionPane.QUESTION_MESSAGE);
 			
 		}
 		if(evento.getSource() == btnProximo && planilha == 1)
@@ -247,6 +261,8 @@ public class Programa implements WindowListener, ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }
 

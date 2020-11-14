@@ -1,7 +1,9 @@
 package Entities;
 
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DadosCSV {
@@ -29,6 +31,8 @@ public class DadosCSV {
          }       
          return (colunas+1);
     }
+
+
     
     public static int contaLinha(String planilha)
     {
