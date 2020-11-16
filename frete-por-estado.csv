@@ -1,6 +1,6 @@
-Região;Frete
-Centro-Oeste;500.00
-Nordeste;750.00
-Norte;800.00
-Sudeste;300.00
-Sul;420.00
+Regiao;Frete;Tempo de entrega
+Centro-Oeste;500.00;3 dias
+Nordeste;750.00;7 dias
+Norte;800.00;8 dias
+Sudeste;300.00;1 dia
+Sul;420.00;3 dias

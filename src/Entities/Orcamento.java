@@ -1,9 +1,10 @@
 package Entities;
 
 public class Orcamento {
-	public static String nomeRegiao;
+	public static String freteRegiao;
 	public static String ton;
-	public float valorPorTonelada;
+	public static float valorPorTonelada;
+	public static String diaEntrega;
 	
 	public static void leToneladas(int linha)
 	{	
@@ -12,7 +13,14 @@ public class Orcamento {
 		ton = DadosCSV.dados[linha-1][1];
 	}
 	
-	public static String leRegiao(String regiao)
+	public static String nomeRegiao(int indice)
+	{
+		//retorna o nome das regioes para exibir como escolha na "bandeja"
+		DadosCSV.getData("frete-por-estado.csv");
+		return DadosCSV.dados[indice][0];
+	}
+	
+	public static String comparaRegiao(String regiao)
 	{
 		//extrai o valor do frete, em string ainda
 		DadosCSV.getData("frete-por-estado.csv");
@@ -24,17 +32,30 @@ public class Orcamento {
 			
 			if(regiao.equals(reg))
 			{
-				nomeRegiao = DadosCSV.dados[i - 1][0];
+				freteRegiao = DadosCSV.dados[i][1];
+				diaEntrega = DadosCSV.dados[i][2];
 				break;
 			}			
 		}
-		return nomeRegiao;	
+		return freteRegiao;	
 	}
 	
-	public float valorTotal(String toneladaLida, float regiaoLida)
+	public static float valorTotal(String toneladaLida, float regiaoLida)
 	{
 		//faz a conta para o saber o or�amento
 		return (valorPorTonelada * Integer.parseInt(toneladaLida)
 				+ regiaoLida);
 	}
+	
+	public static int converteDia()
+	{
+		//pega o primeiro caractere da string do tempo estimado
+		//e converte para int
+		String caractere = diaEntrega.substring(0,1);
+		int diaConvertido = Integer.parseInt(caractere);
+        return diaConvertido;
+	}
+	
+
 }
+

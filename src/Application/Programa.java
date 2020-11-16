@@ -2,17 +2,14 @@ package Application;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
 import Entities.DadosCSV;
 import Entities.Orcamento;
-//
+
 public class Programa implements WindowListener, ActionListener{
 
 	Orcamento dados = new Orcamento();
@@ -24,6 +21,8 @@ public class Programa implements WindowListener, ActionListener{
 	JButton btnConsultar, btnProximo;
 	JTable tabela;
     JScrollPane painel;
+    LocalDate data = LocalDate.now();
+    
     int planilha = 1;
 
 
@@ -88,7 +87,7 @@ public class Programa implements WindowListener, ActionListener{
 		labelTonelada.setBounds(125, 290, 140, 95);
 		labelTonelada.setForeground(Color.WHITE);
 		
-		labelRegiao = new JLabel("Regi�o do destino");
+		labelRegiao = new JLabel("Regiao do destino");
 		labelRegiao.setBounds(125, 290, 140, 170);
 		labelRegiao.setForeground(Color.WHITE);
 
@@ -96,7 +95,8 @@ public class Programa implements WindowListener, ActionListener{
 		inputID = new JComboBox();
 
 		inputID.addItem("<Selecione um ID>");
-		for (int i = 0; i < DadosCSV.contaLinha("transportadoras.csv"); i++) {
+		for (int i = 0; i < DadosCSV.contaLinha("transportadoras.csv"); i++) 
+		{
 			inputID.addItem(DadosCSV.dados[i][0]);
 		}
 
@@ -109,9 +109,10 @@ public class Programa implements WindowListener, ActionListener{
 		inputRegiao = new JComboBox();
 		inputRegiao.setBounds(255, 355, 221, 30);
 
-		inputRegiao.addItem("<Selecione a região>");
-		for (int i = 0; i < DadosCSV.contaLinha("frete-por-estado.csv"); i++){
-			inputRegiao.addItem(Orcamento.leRegiao(DadosCSV.dados[i][0]));
+		inputRegiao.addItem("<Selecione a regiao>");
+		for (int i = 0; i < DadosCSV.contaLinha("frete-por-estado.csv"); i++)
+		{
+			inputRegiao.addItem(Orcamento.nomeRegiao(i));
 		}
 
 		// Botões
@@ -122,7 +123,7 @@ public class Programa implements WindowListener, ActionListener{
 		btnConsultar.setBounds(500, 320, 120, 30);
 		btnConsultar.addActionListener(this);
 		
-		btnProximo = new JButton("Pr�ximo");
+		btnProximo = new JButton("Proximo");
 		btnProximo.setForeground(Color.WHITE);
 		btnProximo.setBackground(Color.ORANGE);
 		btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
@@ -154,8 +155,7 @@ public class Programa implements WindowListener, ActionListener{
 			float total;
 			float frete;
 			String regiao;
-			
-			
+						
 			//le o id da transportadora e converte para Int
 			//usa esse id para saber de qual linha 
 			//o valor sera extraido
@@ -167,20 +167,21 @@ public class Programa implements WindowListener, ActionListener{
 			//o valor correspondente
 			String linhaTabelaRegiao = inputRegiao.getSelectedItem().toString();
 			
-			regiao = dados.leRegiao(linhaTabelaRegiao);
-			System.out.println(regiao);
+			regiao = dados.comparaRegiao(linhaTabelaRegiao);
 			frete = Float.parseFloat(regiao);
-			
+		
 			dados.valorPorTonelada = Float.parseFloat(dados.ton);
 			String toneladaLida = inputTonelada.getText();
 			total = dados.valorTotal(toneladaLida, frete);
-			
+			data = data.plusDays(Orcamento.converteDia());
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    String dataFormatada = data.format(formato);
+
 			System.out.println(total);
-			
-			
+						
 			JOptionPane.showMessageDialog(null,"Valor da viagem: "
-					+ "R$"+total,
-					"Or�amento", JOptionPane.QUESTION_MESSAGE);
+			+ "R$"+total + "\nPrevisao de chegada: " + dataFormatada,
+					"Orcamento", JOptionPane.QUESTION_MESSAGE);
 			
 		}
 		if(evento.getSource() == btnProximo && planilha == 1)
@@ -262,7 +263,4 @@ public class Programa implements WindowListener, ActionListener{
 		
 	}
 
-
-
 }
-
