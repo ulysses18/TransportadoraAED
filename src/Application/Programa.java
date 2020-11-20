@@ -60,10 +60,10 @@ public class Programa implements WindowListener, ActionListener{
 		frmControleDeGastos.getContentPane().setForeground(Color.WHITE);
 		frmControleDeGastos.getContentPane().setBackground(Color.DARK_GRAY);
 		frmControleDeGastos.setBackground(Color.WHITE);
-		frmControleDeGastos.setAlwaysOnTop(true);
 		frmControleDeGastos.setLocation(new Point(0, 0));
 		frmControleDeGastos.setBounds(new Rectangle(0, 0, 0, 0));
 		frmControleDeGastos.setVisible(true);
+		frmControleDeGastos.setResizable(false);
 		frmControleDeGastos.setTitle("Controle de gastos");
 		frmControleDeGastos.setBounds(100, 100, 910, 522);
 		frmControleDeGastos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +71,7 @@ public class Programa implements WindowListener, ActionListener{
 		DadosCSV.getData("transportadoras.csv");
 		tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
         painel = new JScrollPane(tabela);
-        painel.setBounds(123, 70, 640, 204);
+        painel.setBounds(123, 70, 640, 204);        
 
 		// Labels
 		lblBemVindo = new JLabel("Transportadoras cadastradas");
@@ -178,7 +178,7 @@ public class Programa implements WindowListener, ActionListener{
 		    String dataFormatada = data.format(formato);
 
 			System.out.println(total);
-						
+
 			JOptionPane.showMessageDialog(null,"Valor da viagem: "
 			+ "R$"+total + "\nPrevisao de chegada: " + dataFormatada,
 					"Orcamento", JOptionPane.QUESTION_MESSAGE);
