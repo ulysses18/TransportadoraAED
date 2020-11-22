@@ -7,62 +7,60 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DadosCSV {
-	static FileInputStream arquivo;
+
+    static FileInputStream arquivo;
     static DataInputStream leitor;
     public static String[][] dados;
     public static String[] nomesColunas;
-    
-    public static int contaColuna(String planilha)
-    {
-    	int caractere = 0;
-    	int colunas=0;
-    	 try {
-             arquivo = new FileInputStream(planilha);
-             leitor = new DataInputStream(arquivo);
 
-             while (caractere != 10) {
-                 caractere = leitor.read();
-                 	if (caractere == 59)
-                 		colunas += 1;          
-             }            
-             arquivo.close();
-         } catch (IOException erro) {
-             System.out.println("Arquivo nao existe...");
-         }       
-         return (colunas+1);
+    public static int contaColuna(String planilha) {
+        int caractere = 0;
+        int colunas = 0;
+        try {
+            arquivo = new FileInputStream(planilha);
+            leitor = new DataInputStream(arquivo);
+
+            while (caractere != 10) {
+                caractere = leitor.read();
+                if (caractere == 59) {
+                    colunas += 1;
+                }
+            }
+            arquivo.close();
+        } catch (IOException erro) {
+            System.out.println("Arquivo nao existe...");
+        }
+        return (colunas + 1);
     }
 
+    public static int contaLinha(String planilha) {
+        int caractere = 0;
+        int linhas = 0;
+        try {
+            arquivo = new FileInputStream(planilha);
+            leitor = new DataInputStream(arquivo);
 
-    
-    public static int contaLinha(String planilha)
-    {
-    	int caractere = 0;
-    	int linhas=0;
-    	 try { 
-             arquivo = new FileInputStream(planilha);
-             leitor = new DataInputStream(arquivo);
-
-             while (caractere != -1) {
-                 caractere = leitor.read();
-                 	if (caractere == 10)
-                 		linhas += 1;
-             }                         
-             arquivo.close();
-    	 }
-          catch (IOException erro) { 
-             System.out.println("Arquivo nao existe...");
-          }
-         return (linhas-1);
+            while (caractere != -1) {
+                caractere = leitor.read();
+                if (caractere == 10) {
+                    linhas += 1;
+                }
+            }
+            arquivo.close();
+        } catch (IOException erro) {
+            System.out.println("Arquivo nao existe...");
+        }
+        return (linhas - 1);
     }
-    
+
     public static void getData(String planilha) {
         int caractere = 0, linha = 0;
         boolean cabecalho = true;
         String buffer = "";
-   
-        int linhas  = DadosCSV.contaLinha(planilha);
-        int colunas = DadosCSV.contaColuna(planilha);       
-        
+
+        int linhas = DadosCSV.contaLinha(planilha);
+        int colunas = DadosCSV.contaColuna(planilha);
+
         dados = new String[linhas][colunas];
         nomesColunas = new String[colunas];
 
@@ -81,25 +79,21 @@ public class DadosCSV {
 
             while (caractere != -1) {
                 caractere = leitor.read();
-                
-                if (caractere != 10 && caractere != -1)
+
+                if (caractere != 10 && caractere != -1) {
                     buffer += (char) caractere;
-            
-                if (caractere == 10)
-                {
-                   System.out.println(buffer);
-                   if (cabecalho)
-                   {
-                       nomesColunas = buffer.split(";");
-                       cabecalho = false;
-                       buffer = "";
-                   }
-                   else
-                   {
-                       dados[linha] = buffer.split(";");
-                       linha++;
-                       buffer = "";
-                   }
+                }
+
+                if (caractere == 10) {
+                    if (cabecalho) {
+                        nomesColunas = buffer.split(";");
+                        cabecalho = false;
+                        buffer = "";
+                    } else {
+                        dados[linha] = buffer.split(";");
+                        linha++;
+                        buffer = "";
+                    }
                 }
             }
             arquivo.close();
@@ -109,4 +103,3 @@ public class DadosCSV {
     }
 
 }
-
