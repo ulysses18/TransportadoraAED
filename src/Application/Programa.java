@@ -59,13 +59,8 @@ public class Programa implements WindowListener, ActionListener {
         Locale.setDefault(new Locale("pt", "BR"));
         
         // JFrame principal
-        frmControleDeGastos = new JFrame();
-        frmControleDeGastos.getContentPane().setFocusTraversalPolicyProvider(true);
-        frmControleDeGastos.getContentPane().setForeground(Color.WHITE);
+        frmControleDeGastos = new JFrame();              
         frmControleDeGastos.getContentPane().setBackground(Color.DARK_GRAY);
-        frmControleDeGastos.setBackground(Color.WHITE);
-        frmControleDeGastos.setLocation(new Point(0, 0));
-        frmControleDeGastos.setBounds(new Rectangle(0, 0, 0, 0));
         frmControleDeGastos.setVisible(true);
         frmControleDeGastos.setResizable(false);
         frmControleDeGastos.setTitle("Controle de gastos");
