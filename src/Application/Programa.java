@@ -24,12 +24,13 @@ import javax.swing.border.MatteBorder;
 public class Programa implements WindowListener, ActionListener {
 
     Orcamento dados = new Orcamento();
+    Cadastro cadastro = new Cadastro();
     private JFrame frmControleDeGastos;
     private JComboBox inputID, inputRegiao;
     private JTextField inputTonelada;
     JLabel lblBemVindo;
     JLabel labelTransportadora, labelRegiao, labelTonelada;
-    JButton btnConsultar, btnProximo;
+    JButton btnConsultar, btnProximo, btnAdd;
     JTable tabela;
     JScrollPane painel;
     LocalDate data = LocalDate.now();
@@ -124,7 +125,14 @@ public class Programa implements WindowListener, ActionListener {
         btnProximo.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
         btnProximo.setBounds(770, 150, 120, 27);
         btnProximo.addActionListener(this);
-
+        
+        btnAdd = new JButton("Add transportadora");
+        btnAdd.setForeground(Color.WHITE);
+        btnAdd.setBackground(Color.ORANGE);
+        btnAdd.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+        btnAdd.setBounds(770, 180, 120, 27);
+        btnAdd.addActionListener(this);
+        
         // Adição dos componentes na tela
         frmControleDeGastos.getContentPane().setLayout(null);
         frmControleDeGastos.getContentPane().add(lblBemVindo);
@@ -137,6 +145,7 @@ public class Programa implements WindowListener, ActionListener {
         frmControleDeGastos.getContentPane().add(inputTonelada);
         frmControleDeGastos.getContentPane().add(btnConsultar);
         frmControleDeGastos.getContentPane().add(btnProximo);
+        frmControleDeGastos.getContentPane().add(btnAdd);
     }
 
     @Override
@@ -202,6 +211,11 @@ public class Programa implements WindowListener, ActionListener {
             painel.setBounds(123, 70, 640, 204);
             frmControleDeGastos.getContentPane().add(painel);
             planilha = 1;
+        }
+        if(evento.getSource() == btnAdd)
+        {
+        	cadastro.criaJanelaCadastro();
+     
         }
 
     }
