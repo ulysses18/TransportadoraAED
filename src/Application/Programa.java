@@ -126,7 +126,7 @@ public class Programa implements WindowListener, ActionListener {
         btnProximo.setBounds(770, 150, 120, 27);
         btnProximo.addActionListener(this);
         
-        btnAdd = new JButton("Add transportadora");
+        btnAdd = new JButton("Cadastrar");
         btnAdd.setForeground(Color.WHITE);
         btnAdd.setBackground(Color.ORANGE);
         btnAdd.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
