@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import javax.swing.*;
 import Entities.*;
 import javax.swing.border.MatteBorder;
@@ -56,9 +55,7 @@ public class Programa implements WindowListener, ActionListener {
 
     // Inicializa o app
     private void initialize() {
-
-        Locale.setDefault(new Locale("pt", "BR"));
-        
+       
         // JFrame principal
         frmControleDeGastos = new JFrame();              
         frmControleDeGastos.getContentPane().setBackground(Color.DARK_GRAY);

@@ -74,15 +74,16 @@ public class Cadastro implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == cadastrar)
 		{
+			DecimalFormat formatador = new DecimalFormat("0.00");
 			String id = IDTransportadora.getText();
 			String nome = nomeTransportadora.getText();
 			String tonelada = valorPorTonelada.getText();
 			
-			double aux = Double.parseDouble(tonelada);
-			String ton = Double.toString(aux);
-			ton = new DecimalFormat("#.##0.00#").format(ton);
+			double aux = Double.valueOf(tonelada).doubleValue();
+						
+			tonelada = formatador.format(aux);
 			
-			DadosCSV.efetuaCadastro(id, nome, ton);
+			DadosCSV.efetuaCadastro(id, nome, tonelada);
 			DadosCSV.getData("transportadoras.csv");
 			DadosCSV.getData("valor-por-ton.csv");
 		}
