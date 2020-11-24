@@ -3,6 +3,7 @@ package Application;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.*;
 
@@ -54,6 +55,7 @@ public class Cadastro implements ActionListener{
 		cadastrar.setText("Cadastrar");
 		cadastrar.setBounds(200,400,150,25);
 		cadastrar.setFocusable(false);
+		cadastrar.addActionListener(this);
 		
 		telaCadastro.getContentPane().setLayout(null);
 		telaCadastro.getContentPane().add(labelID);
@@ -72,13 +74,15 @@ public class Cadastro implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == cadastrar)
 		{
-			System.out.println("******dasdasfas*****");
-			JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
 			String id = IDTransportadora.getText();
 			String nome = nomeTransportadora.getText();
 			String tonelada = valorPorTonelada.getText();
 			
-			DadosCSV.efetuaCadastro(id, nome, tonelada);
+			double aux = Double.parseDouble(tonelada);
+			String ton = Double.toString(aux);
+			ton = new DecimalFormat("#.##0.00#").format(ton);
+			
+			DadosCSV.efetuaCadastro(id, nome, ton);
 			DadosCSV.getData("transportadoras.csv");
 			DadosCSV.getData("valor-por-ton.csv");
 		}

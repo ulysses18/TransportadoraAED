@@ -111,6 +111,7 @@ public class DadosCSV {
 	{
 		try
 		{
+			
 			FileWriter fwtr = new FileWriter("transportadoras.csv", true);
 			BufferedWriter bwtr = new BufferedWriter(fwtr);
 			PrintWriter pwtr = new PrintWriter(bwtr);
@@ -119,7 +120,7 @@ public class DadosCSV {
 			pwtr.flush();
 			pwtr.close();
 			
-			FileWriter fwval = new FileWriter("transportadoras.csv", true);
+			FileWriter fwval = new FileWriter("valor-por-ton.csv", true);
 			BufferedWriter bwval = new BufferedWriter(fwval);
 			PrintWriter pwval = new PrintWriter(bwval);
 			
