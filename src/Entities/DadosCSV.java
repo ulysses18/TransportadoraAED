@@ -1,10 +1,15 @@
 package Entities;
 
 import java.awt.*;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.swing.JOptionPane;
 
 public class DadosCSV {
 
@@ -101,5 +106,34 @@ public class DadosCSV {
             System.out.println("Arquivo nao existe...");
         }
     }
+    
+    public static void efetuaCadastro(String id, String nome, String tonelada)
+	{
+		try
+		{
+			FileWriter fwtr = new FileWriter("transportadoras.csv", true);
+			BufferedWriter bwtr = new BufferedWriter(fwtr);
+			PrintWriter pwtr = new PrintWriter(bwtr);
+			
+			pwtr.println(id+";"+nome);
+			pwtr.flush();
+			pwtr.close();
+			
+			FileWriter fwval = new FileWriter("transportadoras.csv", true);
+			BufferedWriter bwval = new BufferedWriter(fwval);
+			PrintWriter pwval = new PrintWriter(bwval);
+			
+			pwval.println(id+";"+tonelada);
+			pwval.flush();
+			pwval.close();
+			
+			JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+			
+		}
+		catch(Exception E)
+		{
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+		}
+	}
 
 }

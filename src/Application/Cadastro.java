@@ -1,14 +1,19 @@
 package Application;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class Cadastro {
+import Entities.DadosCSV;
+
+public class Cadastro implements ActionListener{
 	
 	JFrame telaCadastro;
-	JLabel labelTitulo, labelNome, labelValorTonelada;
+	JLabel labelTitulo, labelID, labelNome, labelValorTonelada;
 	JButton cadastrar;
-	JTextField nomeTransportadora, valorPorTonelada;
+	JTextField IDTransportadora, nomeTransportadora, valorPorTonelada;
 	
 	public void criaJanelaCadastro()
 	{
@@ -20,9 +25,16 @@ public class Cadastro {
 		telaCadastro.setBounds(250, 200, 550, 500);
 				
 		labelTitulo = new JLabel("Insira os dados da transportadora");
-		labelTitulo.setBounds(120, 20, 300, 20);
+		labelTitulo.setBounds(150, 20, 300, 20);
 		labelTitulo.setForeground(Color.WHITE);
 		labelTitulo.setFont(new Font("Dialog", Font.BOLD, 15));
+		
+		labelID = new JLabel("ID da transportadora: ");
+		labelID.setBounds(0, 190, 200, 15);
+		labelID.setForeground(Color.WHITE);
+		
+		IDTransportadora = new JTextField();
+		IDTransportadora.setBounds(200, 190, 250, 20);
 		
 		labelNome = new JLabel("Nome da transportadora: ");
 		labelNome.setBounds(0, 224, 200, 15);
@@ -44,6 +56,8 @@ public class Cadastro {
 		cadastrar.setFocusable(false);
 		
 		telaCadastro.getContentPane().setLayout(null);
+		telaCadastro.getContentPane().add(labelID);
+		telaCadastro.getContentPane().add(IDTransportadora);
 		telaCadastro.getContentPane().add(labelNome);
 		telaCadastro.getContentPane().add(nomeTransportadora);
 		telaCadastro.getContentPane().add(labelValorTonelada);
@@ -52,6 +66,27 @@ public class Cadastro {
 		telaCadastro.getContentPane().add(cadastrar);
 		
 	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if(event.getSource() == cadastrar)
+		{
+			System.out.println("******dasdasfas*****");
+			JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+			String id = IDTransportadora.getText();
+			String nome = nomeTransportadora.getText();
+			String tonelada = valorPorTonelada.getText();
+			
+			DadosCSV.efetuaCadastro(id, nome, tonelada);
+			DadosCSV.getData("transportadoras.csv");
+			DadosCSV.getData("valor-por-ton.csv");
+		}
+	
+		
+	}
+	
+
 	
 	
 }
