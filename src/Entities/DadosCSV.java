@@ -107,10 +107,16 @@ public class DadosCSV {
         }
     }
     
-    public static void efetuaCadastro(String id, String nome, String tonelada)
+    public static String efetuaCadastro(String nome, String tonelada)
 	{
+    	DadosCSV.getData("transportadoras.csv");
+    	int linha = DadosCSV.contaLinha("transportadoras.csv");    	
+    	String id = dados[linha-1][0];//valor do ultimo id cadastrado
+    	
 		try
 		{
+			int auxID = Integer.parseInt(id) + 1;//id++
+			id = Integer.toString(auxID);//volta para string para salvar
 			
 			FileWriter fwtr = new FileWriter("transportadoras.csv", true);
 			BufferedWriter bwtr = new BufferedWriter(fwtr);
@@ -128,13 +134,15 @@ public class DadosCSV {
 			pwval.flush();
 			pwval.close();
 			
-			JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+			JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!\n"
+					+ "Nome: "+nome+"\nValor por tonelada: R$"+tonelada);
 			
 		}
 		catch(Exception E)
 		{
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
 		}
+		return id;
 	}
 
 }

@@ -23,12 +23,12 @@ public class Cadastro implements ActionListener{
 		telaCadastro.setVisible(true);
 		telaCadastro.setResizable(false);
 		telaCadastro.setTitle("Cadastro de transportadora");
-		telaCadastro.setBounds(250, 200, 550, 500);
+		telaCadastro.setBounds(250, 130, 550, 500);
 				
 		labelTitulo = new JLabel("Insira os dados da transportadora");
 		labelTitulo.setBounds(150, 20, 300, 20);
 		labelTitulo.setForeground(Color.WHITE);
-		labelTitulo.setFont(new Font("Dialog", Font.BOLD, 15));
+		labelTitulo.setFont(new Font("Dialog", Font.BOLD, 17));
 		
 		labelID = new JLabel("ID da transportadora: ");
 		labelID.setBounds(0, 190, 200, 15);
@@ -54,12 +54,12 @@ public class Cadastro implements ActionListener{
 		cadastrar = new JButton();
 		cadastrar.setText("Cadastrar");
 		cadastrar.setBounds(200,400,150,25);
+		cadastrar.setForeground(Color.WHITE);
+		cadastrar.setBackground(Color.ORANGE);
 		cadastrar.setFocusable(false);
 		cadastrar.addActionListener(this);
 		
 		telaCadastro.getContentPane().setLayout(null);
-		telaCadastro.getContentPane().add(labelID);
-		telaCadastro.getContentPane().add(IDTransportadora);
 		telaCadastro.getContentPane().add(labelNome);
 		telaCadastro.getContentPane().add(nomeTransportadora);
 		telaCadastro.getContentPane().add(labelValorTonelada);
@@ -74,24 +74,21 @@ public class Cadastro implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == cadastrar)
 		{
-			DecimalFormat formatador = new DecimalFormat("0.00");
-			String id = IDTransportadora.getText();
+						
 			String nome = nomeTransportadora.getText();
-			String tonelada = valorPorTonelada.getText();
+			String tonelada = valorPorTonelada.getText();		
 			
 			double aux = Double.valueOf(tonelada).doubleValue();
-						
-			tonelada = formatador.format(aux);
-			
-			DadosCSV.efetuaCadastro(id, nome, tonelada);
-			DadosCSV.getData("transportadoras.csv");
-			DadosCSV.getData("valor-por-ton.csv");
-		}
-	
+			tonelada = Double.toString(aux);
 		
+			String ID = DadosCSV.efetuaCadastro(nome, tonelada);
+			
+			Programa.inputID.addItem(ID);
+			
+			telaCadastro.dispose(); //apos o cadastro ser feito e o pop-up
+									//confirmado, a janela de cadastro é fechada									
+		}
+			
 	}
-	
-
-	
-	
+			
 }

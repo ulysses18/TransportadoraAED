@@ -20,13 +20,14 @@ import javax.swing.border.MatteBorder;
  * 
  */
 
-public class Programa implements WindowListener, ActionListener {
+public class Programa implements ActionListener {
 
     Orcamento dados = new Orcamento();
     Cadastro cadastro = new Cadastro();
-    private JFrame frmControleDeGastos;
-    private JComboBox inputID, inputRegiao;
-    private JTextField inputTonelada;
+    static JFrame frmControleDeGastos;
+    static JComboBox inputID;
+    static JComboBox inputRegiao;
+	static JTextField inputTonelada;
     JLabel lblBemVindo;
     JLabel labelTransportadora, labelRegiao, labelTonelada;
     JButton btnConsultar, btnProximo, btnAdd;
@@ -68,7 +69,7 @@ public class Programa implements WindowListener, ActionListener {
         DadosCSV.getData("transportadoras.csv");
         tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
         painel = new JScrollPane(tabela);
-        painel.setBounds(123, 70, 640, 204);
+        painel.setBounds(125, 70, 640, 185);
 
         // Labels
         lblBemVindo = new JLabel("Transportadoras cadastradas");
@@ -92,7 +93,8 @@ public class Programa implements WindowListener, ActionListener {
         inputID = new JComboBox();
         inputID.setBounds(275, 285, 221, 30);
         inputID.addItem("<Selecione um ID>");
-        for (int i = 0; i < DadosCSV.contaLinha("transportadoras.csv"); i++) {
+        for (int i = 0; i < DadosCSV.contaLinha("transportadoras.csv"); i++)
+        {
             inputID.addItem(DadosCSV.dados[i][0]);
         }
 
@@ -103,7 +105,8 @@ public class Programa implements WindowListener, ActionListener {
         inputRegiao = new JComboBox();
         inputRegiao.setBounds(275, 355, 221, 30);
         inputRegiao.addItem("<Selecione a regiao>");
-        for (int i = 0; i < DadosCSV.contaLinha("frete-por-estado.csv"); i++) {
+        for (int i = 0; i < DadosCSV.contaLinha("frete-por-estado.csv"); i++) 
+        {
             inputRegiao.addItem(Orcamento.nomeRegiao(i));
         }
 
@@ -127,7 +130,7 @@ public class Programa implements WindowListener, ActionListener {
         btnAdd.setForeground(Color.WHITE);
         btnAdd.setBackground(Color.ORANGE);
         btnAdd.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-        btnAdd.setBounds(770, 180, 120, 27);
+        btnAdd.setBounds(770, 450, 120, 27);
         btnAdd.addActionListener(this);
         
         // Adição dos componentes na tela
@@ -171,13 +174,17 @@ public class Programa implements WindowListener, ActionListener {
             String toneladaLida = inputTonelada.getText();
             total = dados.valorTotal(toneladaLida, frete);
             data = data.plusDays(Orcamento.converteDia());
+            
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String dataFormatada = data.format(formato);
-
+  
             // Cria uma mensagem de diálogo na tela, descrevendo os valores e prazos
             JOptionPane.showMessageDialog(null, "Valor da viagem: "
                     + "R$" + total + "\nPrevisao de chegada: " + dataFormatada,
                     "Orcamento", JOptionPane.QUESTION_MESSAGE);
+            
+            data = LocalDate.now(); //Voltar a data atual,
+            						//para nao acumular
         }
 
         if (evento.getSource() == btnProximo && planilha == 1) {
@@ -187,63 +194,39 @@ public class Programa implements WindowListener, ActionListener {
             DadosCSV.getData("valor-por-ton.csv");
             tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
             painel = new JScrollPane(tabela);
-            painel.setBounds(123, 70, 640, 204);
+            painel.setBounds(125, 70, 640, 185);
             frmControleDeGastos.getContentPane().add(painel);
             planilha = 2;
+            
         } else if (evento.getSource() == btnProximo && planilha == 2) {
+        	
+        	painel.setBounds(125, 70, 640, 103);
             frmControleDeGastos.getContentPane().remove(painel);
             lblBemVindo.setText("Frete por estado");
             DadosCSV.getData("frete-por-estado.csv");
             tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
             painel = new JScrollPane(tabela);
-            painel.setBounds(123, 70, 640, 204);
+            painel.setBounds(125, 70, 640, 103);
             frmControleDeGastos.getContentPane().add(painel);
             planilha = 3;
+            
         } else if (evento.getSource() == btnProximo && planilha == 3) {
+        	
             frmControleDeGastos.getContentPane().remove(painel);
             lblBemVindo.setText("Transportadoras cadastradas");
             DadosCSV.getData("transportadoras.csv");
             tabela = new JTable(DadosCSV.dados, DadosCSV.nomesColunas);
             painel = new JScrollPane(tabela);
-            painel.setBounds(123, 70, 640, 204);
+            painel.setBounds(125, 70, 640, 185);
             frmControleDeGastos.getContentPane().add(painel);
             planilha = 1;
+            
         }
         if(evento.getSource() == btnAdd)
         {
         	cadastro.criaJanelaCadastro();
-     
         }
 
     }
-
-    // Métodos override (não utilizado)
-    @Override
-    public void windowActivated(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowClosed(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowClosing(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent arg0) {
-    }
-
-    @Override
-    public void windowOpened(WindowEvent arg0) {
-    }
-
+    
 }
